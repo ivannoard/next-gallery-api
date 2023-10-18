@@ -18,6 +18,8 @@ model User {
 
 model Photos {
   id        Int      @id @default(autoincrement())
+  name      String
+  path      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 
 }
