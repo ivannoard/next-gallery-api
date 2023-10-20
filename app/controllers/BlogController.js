@@ -31,14 +31,21 @@ const getBlogs = async (req, res) => {
       },
     },
   });
-  data[0].permission = data[0].permission.map((item) => item.name);
-  data[0].tag = data[0].tag.map((item) => item.name);
-  if (data.length !== 0) {
+
+  const finalData = data.map((item) => {
+    return {
+      ...item,
+      permission: item.permission.map((item) => item.name),
+      tag: item.tag.map((item) => item.name),
+    };
+  });
+
+  if (finalData.length !== 0) {
     return res.status(200).json({
       status: 200,
       success: true,
       message: "Post retrieved successfully",
-      data,
+      finalData,
     });
   }
   return res.status(404).json({
@@ -115,18 +122,19 @@ const createBlog = async (req, res) => {
           data: [
             {
               name: "test user 0",
-              comment: "lorem ipsum dolor sit amet.",
             },
             {
               name: "test user 1",
-              comment: "lorem ipsum dolor sit amet.",
             },
           ],
         },
       },
       comments: {
         createMany: {
-          data: [{ name: "comments 0" }, { name: "comments 1" }],
+          data: [
+            { name: "comments 0", comment: "lorem ipsum dolor sit amet." },
+            { name: "comments 1", comment: "lorem ipsum dolor sit amet." },
+          ],
         },
       },
       thumbnails: {
