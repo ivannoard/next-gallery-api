@@ -31,7 +31,8 @@ route.get("/blog/get-all", BlogController.getBlogs);
 route.get("/blog/get/:id", BlogController.getBlog);
 route.post("/blog/add", BlogController.createBlog);
 route.put("/blog/update/:id", BlogController.updateBlogById);
-route.delete("/blog/delete/:id", BlogController.deleteBlogById);
+route.put("/blog/soft-delete/:id", BlogController.softDeleteBlogById);
+route.put("/blog/delete/:id", BlogController.deleteBlogById);
 
 // gallery
 route.get("/gallery/get-all", GalleryController.getGalleries);

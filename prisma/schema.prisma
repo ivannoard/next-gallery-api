@@ -20,12 +20,39 @@ model Photos {
   id        Int      @id @default(autoincrement())
   name      String
   path      String
+  blog      Blog?     @relation(fields: [blogId], references: [id])
+  blogId    Int?       
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 
 }
 
 model Blog {
+  id            Int      @id @default(autoincrement())
+  title         String
+  isShow        Boolean
+  content       String
+  thumbnails    Photos[]
+  tag           Tag[]
+  permission    Permission[]
+  comments      Comments_Blog[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt 
+}
+
+model Permission {
   id        Int      @id @default(autoincrement())
+  name      String
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 
 }
@@ -38,6 +65,10 @@ model Gallery {
 
 model Comments_Blog {
   id        Int      @id @default(autoincrement())
+  name      String
+  comment   String
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
